@@ -1,21 +1,39 @@
 /* Applies to the entire body of the HTML document (except where overridden by more specific
 selectors). */
+header{
+  font-size: 20px;
+  font-weight: normal;
+  margin-top: 5px;
+  color: blue;
+}
+
+
 body {
   margin: 25px;
   background-color: rgb(240,240,240);
   font-family: arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 /* Applies to all <h1>...</h1> elements. */
-h1 {
-  font-size: 35px;
+header{
+  font-size: 20px;
   font-weight: normal;
   margin-top: 5px;
+  color: blue;
 }
 
 /* Applies to all elements with <... class="someclass"> specified. */
-.someclass { color: red; }
+.diff-html-added { color: green;
+   font-size: 20px;
+   font-weight: bold;
+}
+.diff-html-removed { color: red;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+}
+
 
 /* Applies to the element with <... id="someid"> specified. */
 #someid { color: green; }

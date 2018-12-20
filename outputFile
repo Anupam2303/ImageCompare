@@ -1,0 +1,12 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+<body>
+ A Simple HTML Document <span class="diff-html-removed" id="removed-test-0" previous="first-test" changeId="removed-test-0" next="removed-test-1">1 </span><p>HTML document <span class="diff-html-removed" id="removed-test-1" previous="removed-test-0" changeId="removed-test-1" next="added-test-0">first second</span>
+</p><p>
+<span class="diff-html-removed" previous="removed-test-0" changeId="removed-test-1" next="added-test-0">HTML document first second</span>
+</p><p>
+<span class="diff-html-added" id="added-test-0" previous="removed-test-1" changeId="added-test-0" next="last-test">third</span>
+</p></body>
+</html>
