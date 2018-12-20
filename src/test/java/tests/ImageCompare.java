@@ -39,13 +39,13 @@ public class ImageCompare {
     }
 
     @Test
-    public void testImageComparison() throws IOException, InterruptedException {
+    public void testImageComparison(String file1,String file2) throws IOException, InterruptedException {
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         Thread.sleep(3000);
         FileUtils.copyFile(screenshot, new File("/Personal/GoogleOutput.jpg"));
 
-        File fileInput = new File("/Personal/GoogleInput.png");
-        File fileOutPut = new File("/Personal/GoogleOutput.jpg");
+        File fileInput = new File(file1);
+        File fileOutPut = new File(file2);
 
         BufferedImage bufferfileinput = ImageIO.read(fileInput);
         DataBuffer bufferfileInput = bufferfileinput.getData().getDataBuffer();
