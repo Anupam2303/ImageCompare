@@ -103,7 +103,7 @@ public class GlobalFunction {
         }
         reader1.close();
         reader2.close();
-        return flag;
+        return 1;
     }
 
     public void createFile(String pageName, String pageSource) throws IOException {
@@ -213,33 +213,35 @@ public class GlobalFunction {
         }
     }
 
-    public boolean testImageComparison(String file1,String file2) throws IOException, InterruptedException {
-        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        Thread.sleep(3000);
-        FileUtils.copyFile(screenshot, new File("/Personal/GoogleOutput.jpg"));
-
-        File fileInput = new File(file1);
-        File fileOutPut = new File(file2);
-
-        BufferedImage bufferfileinput = ImageIO.read(fileInput);
-        DataBuffer bufferfileInput = bufferfileinput.getData().getDataBuffer();
-        int sizefileInput = bufferfileInput.getSize();
-        BufferedImage bufferfileOutPut = ImageIO.read(fileOutPut);
-        DataBuffer datafileOutPut = bufferfileOutPut.getData().getDataBuffer();
-        int sizefileOutPut = datafileOutPut.getSize();
+    public boolean testImageComparison(String file1,String file2) {
         boolean matchFlag = true;
-        if (sizefileInput == sizefileOutPut) {
-            for (int i = 0; i < sizefileInput; i++) {
-                if (bufferfileInput.getElem(i) != datafileOutPut.getElem(i)) {
-                    matchFlag = false;
-                    break;
-                }
-            }
-        } else {
-            matchFlag = false;
-        }
+        try {
+            File fileInput = new File(file1);
+            File fileOutPut = new File(file2);
 
-        return matchFlag;
+            BufferedImage bufferfileinput = ImageIO.read(fileInput);
+            DataBuffer bufferfileInput = bufferfileinput.getData().getDataBuffer();
+            int sizefileInput = bufferfileInput.getSize();
+            BufferedImage bufferfileOutPut = ImageIO.read(fileOutPut);
+            DataBuffer datafileOutPut = bufferfileOutPut.getData().getDataBuffer();
+            int sizefileOutPut = datafileOutPut.getSize();
+            matchFlag = true;
+            if (sizefileInput == sizefileOutPut) {
+                for (int i = 0; i < sizefileInput; i++) {
+                    if (bufferfileInput.getElem(i) != datafileOutPut.getElem(i)) {
+                        matchFlag = false;
+                        break;
+                    }
+                }
+            } else {
+                matchFlag = false;
+            }
+        }
+         catch (IOException e) {
+            e.printStackTrace();
+        }
+            return matchFlag;
+
     }
 
 }

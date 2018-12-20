@@ -41,26 +41,26 @@ public class ZeplinCompareTest {
 
   @Test
   public void navigateToZeplin() throws IOException {
-    zeplinLoginPage.navigateTodURL("https://app.zeplin.io/project/5b8aaeef38c95d7c1c3d8e2e/screen/5b8ab6221ff82a1293f061ae","zeplinHomePage");
+//    zeplinLoginPage.navigateTodURL("https://app.zeplin.io/project/5b8aaeef38c95d7c1c3d8e2e/screen/5b8ab6221ff82a1293f061ae","zeplinHomePage");
+    zeplinLoginPage.navigateTodURL("https://www.google.com","zeplinHomePage");
   }
 
 
-//  @Test
-//  public void compareZepline() throws Exception {
-//    String fileOne = "/CodieCon/ImageCompare/src/main/resources/zeplinHomePage1.html";
-////    /CodieCon/ImageCompare/src/main/resources/zeplinHomePage2.html
-//    String filetwo = "/CodieCon/ImageCompare/src/main/resources/zeplinHomePage2.html";
-//    int value =globalFunction.compareFileText(fileOne,filetwo);
-//    assertThat("file matches",value,equalTo(1));
-//  }
-//
-//  @Test
-//  public void compareZeplineHTML() throws Exception{
-//    String fileOne = "zeplinHomePage1.html";
-////    /CodieCon/ImageCompare/src/main/resources/zeplinHomePage2.html
-//    String filetwo = "zeplinHomePage2.html";
-//    globalFunction.daisyDiffTest(fileOne,filetwo);
-//  }
+  @Test
+  public void compareZepline() throws Exception {
+    String fileOne = "/CodieCon/ImageCompare/src/main/resources/zeplinHomePage1.html";
+    String filetwo = "/CodieCon/ImageCompare/src/main/resources/zeplinHomePage2.html";
+    int value =globalFunction.compareFileText(fileOne,filetwo);
+    assertThat("file matches",value,equalTo(1));
+  }
+
+  @Test
+  public void compareZeplineImage() throws Exception {
+    String fileOne = "/CodieCon/ImageCompare/src/main/resources/zeplinHomePage1.png";
+    String filetwo = "/CodieCon/ImageCompare/src/main/resources/zeplinHomePage2.png";
+    boolean value = globalFunction.testImageComparison(fileOne, filetwo);
+    assertThat("file matches",value,equalTo(true));
+  }
 
   @AfterSuite
   public void tearDown() throws Exception {
