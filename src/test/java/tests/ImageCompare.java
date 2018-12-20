@@ -15,6 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -23,8 +24,9 @@ public class ImageCompare {
     public WebDriver driver;
     private String baseUrl;
 
-    @BeforeSuite
+    @BeforeClass
     public void setUp() throws Exception {
+        driver.quit();
         System.setProperty("webdriver.chrome.driver", "/Personal/Drivers/chromedriver");
         driver = new ChromeDriver();
         baseUrl = "https://www.google.co.in/";
@@ -33,7 +35,7 @@ public class ImageCompare {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
-    @AfterSuite
+    @BeforeClass
     public void tearDown() throws Exception {
         driver.quit();
     }

@@ -25,6 +25,20 @@ import java.util.*;
 public class GlobalFunction {
     private WebDriver driver;
 
+    public GlobalFunction(WebDriver driver)
+    {
+        this.driver = driver;
+    }
+
+    public static final String htmlText = "<html>\n" +
+            "<head>\n" +
+            "<body>\n" +
+            "%s\n" +
+            "</body>\n" +
+            "</head>\n" +
+            "</html>\n";
+
+
     public static String usingBufferedReader(String filename)
     {
 
@@ -44,22 +58,6 @@ public class GlobalFunction {
             e.printStackTrace();
         }
         return contentBuilder.toString();
-    }
-
-    public GlobalFunction()
-    {
-        this.driver = new ChromeDriver();
-    }
-
-    public String cssproperty(WebElement element){
-
-        JavascriptExecutor executor = (JavascriptExecutor)driver;
-        String script = "var s = '';" +
-                "var o = getComputedStyle(arguments[0]);" +
-                "for(var i = 0; i < o.length; i++){" +
-                "s+=o[i] + ':' + o.getPropertyValue(o[i])+';';}" +
-                "return s;";
-        return executor.executeScript(script, element).toString();
     }
 
     public Map<String,String> convertStringToMap(String cssString){
@@ -243,5 +241,49 @@ public class GlobalFunction {
             return matchFlag;
 
     }
+
+    public Map<String, String> returnSimilar(Map<String,String> mapZep,Map<String,String> mapUI){
+        Map<String,String> similarResults = new LinkedHashMap<String, String>();
+        Set<String> keysOfUI = mapUI.keySet();
+        List<String> listKeysOfUi = new ArrayList<String>(keysOfUI);
+        for (String aListKeysOfUi : listKeysOfUi) {
+            if (mapUI.containsKey(aListKeysOfUi) && mapZep.containsKey(aListKeysOfUi)) {
+                if (mapUI.get(aListKeysOfUi).equals(mapZep.get(aListKeysOfUi))) {
+                    similarResults.put(aListKeysOfUi, mapUI.get(aListKeysOfUi));
+                }
+            }
+        }
+        return similarResults;
+    }
+
+    public Map<String, String> returnDifferent(Map<String,String> mapZep,Map<String,String> mapUI) {
+        Map<String,String> differentResults = new LinkedHashMap<String, String>();
+        Set<String> keysOfUI = mapUI.keySet();
+        List<String> listKeysOfUi = new ArrayList<String>(keysOfUI);
+        for (String aListKeysOfUi : listKeysOfUi) {
+            if (mapUI.containsKey(aListKeysOfUi) && mapZep.containsKey(aListKeysOfUi)) {
+                if (!mapUI.get(aListKeysOfUi).equals(mapZep.get(aListKeysOfUi))) {
+                    differentResults.put(aListKeysOfUi, mapUI.get(aListKeysOfUi));
+                }
+            }
+        }
+        return differentResults;
+    }
+
+    public void createOutput(Map<String,String> Similar,Map<String,String> Different) throws IOException {
+            BufferedWriter writeSource;
+            FileWriter fileWrite;
+            File sourceFile1 = new File("src/main/resources/output/DifferentCss.html");
+            File sourceFile2 = new File("src/main/resources/output/SimilarCss.html");
+            fileWrite = new FileWriter(sourceFile1);
+            BufferedWriter writer = new BufferedWriter(fileWrite);
+            writer.write(String.format(htmlText,Different.toString()));
+            writer.close();
+
+            fileWrite = new FileWriter(sourceFile2);
+            BufferedWriter writer2 = new BufferedWriter(fileWrite);
+            writer2.write(String.format(htmlText,Similar.toString()));
+            writer2.close();
+        }
 
 }

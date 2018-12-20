@@ -13,9 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ZeplinLogin {
 
-    GlobalFunction globalFunction = new GlobalFunction();
-
     WebDriver driver;
+    GlobalFunction globalFunction = new GlobalFunction(driver);
 
     WebElement userNameField;
     WebElement passwordField;
@@ -56,6 +55,7 @@ public class ZeplinLogin {
         this.pageSource = driver.getPageSource();
         this.pageSource= driver.getPageSource();
         globalFunction.createFile(pageName,pageSource);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         WebElement element = driver.findElement(By.xpath("//*[@id=\"screenImage\"]"));
         String src = element.getAttribute("src");
         URL imageURL = new URL(src);
@@ -63,10 +63,31 @@ public class ZeplinLogin {
     }
 
     public Map<String, String> getCssForElement() {
-        driver.findElement(By.xpath("//*[@id=\"loginForm\"]/button")).click();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.navigate().to("https://app.zeplin.io/project/5b8aaeef38c95d7c1c3d8e2e/screen/5b8ab6221ff82a1293f061ae");
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        login("anupam_rai","Coviam@2018");
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         WebElement masukZeplin = driver.findElement(By.xpath("//*[@id=\"layers\"]/div[9]"));
-        return globalFunction.convertStringToMap(globalFunction.cssproperty(masukZeplin));
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        String script = "var s = '';" +
+                "var o = getComputedStyle(arguments[0]);" +
+                "for(var i = 0; i < o.length; i++){" +
+                "s+=o[i] + ':' + o.getPropertyValue(o[i])+';';}" +
+                "return s;";
+        String cssProp = executor.executeScript(script, masukZeplin).toString();
+        return globalFunction.convertStringToMap(cssProp);
+    }
+
+    public String cssproperty(WebElement element){
+
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        String script = "var s = '';" +
+                "var o = getComputedStyle(arguments[0]);" +
+                "for(var i = 0; i < o.length; i++){" +
+                "s+=o[i] + ':' + o.getPropertyValue(o[i])+';';}" +
+                "return s;";
+        String cssProp = executor.executeScript(script, element).toString();
+        return cssProp;
     }
 }
 

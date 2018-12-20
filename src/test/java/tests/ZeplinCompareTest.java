@@ -8,9 +8,7 @@ import Global.GlobalFunction;
 import Pages.ZeplinLogin;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -22,9 +20,9 @@ public class ZeplinCompareTest {
 
   WebDriver driver = new ChromeDriver();
   ZeplinLogin zeplinLoginPage = new ZeplinLogin(driver);
-  GlobalFunction globalFunction = new GlobalFunction();
+  GlobalFunction globalFunction = new GlobalFunction(driver);
 
-  @BeforeSuite
+  @BeforeClass
   public void setUp()
   {
     driver.get("https://app.zeplin.io/login");
@@ -41,8 +39,7 @@ public class ZeplinCompareTest {
 
   @Test
   public void navigateToZeplin() throws IOException {
-//    zeplinLoginPage.navigateTodURL("https://app.zeplin.io/project/5b8aaeef38c95d7c1c3d8e2e/screen/5b8ab6221ff82a1293f061ae","zeplinHomePage");
-    zeplinLoginPage.navigateTodURL("https://www.google.com","zeplinHomePage");
+    zeplinLoginPage.navigateTodURL("https://app.zeplin.io/project/5b8aaeef38c95d7c1c3d8e2e/screen/5b8ab6221ff82a1293f061ae","zeplinHomePage");
   }
 
 
@@ -62,7 +59,7 @@ public class ZeplinCompareTest {
     assertThat("file matches",value,equalTo(true));
   }
 
-  @AfterSuite
+  @AfterClass
   public void tearDown() throws Exception {
     driver.quit();
   }
