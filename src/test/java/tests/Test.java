@@ -30,7 +30,7 @@ public class Test {
   @org.testng.annotations.Test
   public void loginTest()
   {
-    loginPage.login("pranav.ks.com","lskjfdlksdjf");
+    loginPage.login("pranav.ks","1");
     loginPage.verifyLogo();
 
   }
