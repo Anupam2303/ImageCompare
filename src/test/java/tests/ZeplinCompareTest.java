@@ -1,10 +1,8 @@
 package tests;
 
-/**
- * Created by Pranav on 19/12/18.
- */
 
 import Global.GlobalFunction;
+import Global.JavaEmail;
 import Pages.ZeplinLogin;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,9 +16,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ZeplinCompareTest {
 
-  WebDriver driver = new ChromeDriver();
-  ZeplinLogin zeplinLoginPage = new ZeplinLogin(driver);
-  GlobalFunction globalFunction = new GlobalFunction(driver);
+  private WebDriver driver = new ChromeDriver();
+  private ZeplinLogin zeplinLoginPage = new ZeplinLogin(driver);
+  private GlobalFunction globalFunction = new GlobalFunction(driver);
+  private JavaEmail javaEmail = new JavaEmail();
+  private static boolean notif;
 
   @BeforeClass
   public void setUp()
@@ -32,7 +32,7 @@ public class ZeplinCompareTest {
   @Test
   public void loginTest()
   {
-    zeplinLoginPage.login("anupam_rai","Coviam@2018");
+    zeplinLoginPage.login("zeplinid","password");
     zeplinLoginPage.verifyLogo();
 
   }
@@ -56,7 +56,18 @@ public class ZeplinCompareTest {
     String fileOne = "/CodieCon/ImageCompare/src/main/resources/zeplinHomePage1.png";
     String filetwo = "/CodieCon/ImageCompare/src/main/resources/zeplinHomePage2.png";
     boolean value = globalFunction.testImageComparison(fileOne, filetwo);
+    notif = value;
     assertThat("file matches",value,equalTo(true));
+  }
+
+  @Test
+  public void sendmail(){
+    if (notif)
+      javaEmail.sendMail("Zeplin Version matched ","Keep calm and relax no need to change UI");
+    else
+      javaEmail.sendMail("Zeplin Version not matched ","Looks like UX has changed Zeplin mockup " +
+              "Please look into it.");
+
   }
 
   @AfterClass

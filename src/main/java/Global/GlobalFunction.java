@@ -1,7 +1,5 @@
 package Global;
 
-import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.outerj.daisy.diff.DaisyDiff;
 import org.xml.sax.ContentHandler;
@@ -13,9 +11,6 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
-
-import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.io.*;

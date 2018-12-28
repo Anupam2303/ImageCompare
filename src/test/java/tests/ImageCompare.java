@@ -68,8 +68,7 @@ public class ImageCompare {
             Assert.assertTrue(matchFlag, "Images are same");
 
         } else {
-            matchFlag = false;
-            Assert.assertTrue(matchFlag, "Images are not same");
+            Assert.assertTrue(false, "Images are not same");
         }
     }
 }

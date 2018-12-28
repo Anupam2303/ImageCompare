@@ -137,17 +137,5 @@ public class getPageSource {
         return cssElementkeyValues;
     }
 
-//    public boolean compareMap(Map<String, String> map1, Map<String, String> map2) {
-//        boolean returnValue = false;
-//        if (map1 == null || map2 == null)
-//            return false;
-//        for (String ch2 : map2.keySet()) {
-//            if (map1.containsKey(ch2)) {
-//                System.out.println("Value = " + map2.get(ch2));
-//                returnValue = true;
-//            }
-//        }
-//        return returnValue;
-//    }
 
 }
